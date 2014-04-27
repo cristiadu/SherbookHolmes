@@ -1,0 +1,89 @@
+{
+	"name": "AllData",
+	"children":[
+				{
+					"name": "Music",
+					"children":[
+								{
+									"name":"Nickelback",
+									"likes":1234
+								},
+								{
+									"name":"Paramore",
+									"likes":1334
+								}
+							]
+				},
+				{
+					"name": "Books",
+					"children":[
+								{
+									"name":"Pride and Prejudice",
+									"likes":3321
+								},
+								{
+									"name":"The Book Thief",
+									"likes":3431
+								},
+								{
+									"name":"Pride and Prejudice",
+									"likes":3321
+								},
+								{
+									"name":"The Book Thief",
+									"likes":3431
+								},
+								{
+									"name":"Pride and Prejudice",
+									"likes":3321
+								},
+								{
+									"name":"The Book Thief",
+									"likes":3431
+								},
+								{
+									"name":"Pride and Prejudice",
+									"likes":3321
+								},
+								{
+									"name":"The Book Thief",
+									"likes":3431
+								},
+								{
+									"name":"Pride and Prejudice",
+									"likes":3321
+								},
+								{
+									"name":"The Book Thief",
+									"likes":3431
+								}
+							]
+				},
+				{
+					"name": "Movies",
+					"children":[
+								{
+									"name":"Die Hard",
+									"likes":1211
+								},
+								{
+									"name":"Inception",
+									"likes":6000
+								}
+							]
+				},
+				{
+					"name": "TV Show",
+					"children":[
+								{
+									"name":"Skins",
+									"likes":1231
+								},
+								{
+									"name":"Scrubs",
+									"likes":321
+								}
+							]
+				}
+			]
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- This site was created in Webflow. http://www.webflow.com-->
+<!-- Last Published: Sun Apr 27 2014 03:43:17 GMT+0000 (UTC) -->
+<html data-wf-site="52f1b3efadd5fecd1b0000f4">
+<head>
+  <meta charset="utf-8">
+  <title>SherBook Holmes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="Webflow">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="css/webflow.css">
+  <link rel="stylesheet" type="text/css" href="css/buzz-app.webflow.css">
+<link rel="stylesheet" type="text/css" href="css/custom-style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script>
+    WebFont.load({
+      google: {
+        families: ["Montserrat:400,700","Bitter:400,700,400italic"]
+      }
+    });
+  </script>
+  <script type="text/javascript" src="js/modernizr.js"></script>
+  <link rel="shortcut icon" type="image/x-icon" href="https://y7v4p6k4.ssl.hwcdn.net/placeholder/favicon.ico">
+</head>
+<body>
+  <div class="title-section">
+    <div class="w-container">
+      <img src="images/title.png" width="319" alt="535c4287bcf0378e580003af_title.png">
+      <a class="button" href="#">Log Out</a>
+    </div>
+  </div>
+  <div class="main-section">
+    <div class="w-container">
+      <div class="w-row">
+        <form id="parameters-form" name="parameters-form" method="post">
+          <div class="w-col w-col-2">
+            <div class="w-form left-column">
+              
+                <label for="name">Select categories to view:</label>
+                <div class="w-checkbox">
+                  <input class="w-checkbox-input" id="checkbox" type="checkbox" name="type" data-name="Checkbox" checked="checked">
+                  <label class="w-form-label" for="checkbox">Music</label>
+                </div>
+                <div class="w-checkbox">
+                  <input class="w-checkbox-input" id="checkbox-2" type="checkbox" name="type" data-name="Checkbox 2" checked="checked">
+                  <label class="w-form-label" for="checkbox-2">Movies</label>
+                </div>
+                <div class="w-checkbox">
+                  <input class="w-checkbox-input" id="checkbox-4" type="checkbox" name="type" data-name="Checkbox 4" checked="checked">
+                  <label class="w-form-label" for="checkbox-4">TV&nbsp;Show</label>
+                </div>
+                <div class="w-checkbox">
+                  <input class="w-checkbox-input" id="checkbox-3" type="checkbox" name="type" data-name="Checkbox 3" checked="checked">
+                  <label class="w-form-label" for="checkbox-3">Books</label>
+                </div>
+              
+            </div>
+          </div>
+          <div class="w-col w-col-7" id="svg">
+            
+          </div>
+          <div class="w-col w-col-3">
+            <div class="w-form left-column">
+              <input type="text" name="friends-number" class="form-control" placeholder="Enter number of friends to use (Default = 200)"><br>
+              <input type="text" name="friends-number" class="form-control" placeholder="Enter number of likes to use (Default = 10)">
+
+              <small><strong>Note:</strong> The bigger the numbers above, the longer will take to show the results</small>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script type="text/javascript" src="js/webflow.js"></script>
+    <script type="text/javascript" src="js/showData.js"></script>
+  <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
+</body>
+</html>
