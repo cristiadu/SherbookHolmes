@@ -20,7 +20,7 @@ $(document).ready(function(){
                
 
                  var width = 850,
-      height = 750;
+      height = 700;
 
   var fill = d3.scale.category10();
   var nodes = classes(result);

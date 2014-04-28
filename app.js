@@ -33,6 +33,12 @@ app.get('/', function(req, res){
 });
 
 
+app.get('/logout',function(req,res)
+{
+	var acesstk = req.session.access_token;
+	req.session.access_token = "";
+	res.render('index');
+});
 
 
 //Auth with facebook
@@ -92,9 +98,11 @@ app.post('/search',function(req,res){
 
 
  	// #FACEBOOK DATA#
- 	if(req.param("typePage") !== undefined)
+ 
+ 	typePage = req.param("typePage");
+ 	if(typePage !== undefined)
  	{
- 		typePage = req.param("typePage");
+ 		
 
  		if(is_array(typePage))
  		{	
@@ -111,7 +119,7 @@ app.post('/search',function(req,res){
  			strTpPAge='type="'+typePage+'" ';
  	}
  	else
- 		strType = 'type="Musician/Band" OR type="Movie" OR type="Book" OR type="TV Show"';
+ 		strTpPAge = 'type="Musician/Band" OR type="Movie" OR type="Book" OR type="TV Show"';
 
  	if(req.param("nlikes")!=="")
  		nlikes = req.param("nlikes");
@@ -119,7 +127,7 @@ app.post('/search',function(req,res){
  		nlikes = 10;
  	// get the artist page
  	var query = 'SELECT page_id,name,type FROM page WHERE page_id IN(SELECT page_id FROM page_fan WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=me() LIMIT 200)) AND ('+strTpPAge+') ORDER BY fan_count DESC limit '+nlikes;
- 	
+
  	
  	graph.setAccessToken(req.session.access_token).fql(query,function(err,res2)
  	{
