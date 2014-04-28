@@ -72,52 +72,58 @@ app.get('/initial', function(req, res) {
 
 app.post('/search',function(req,res){
 		
-	console.log(req.param("type"));
+	
+	var strType = "";
  	// #FACEBOOK DATA#
  	if(req.param("types"))
+ 	{
  		types = req.param("type");
- 	else
- 		strType = '"Musician/Band, Movie,Book,TV Show"';
 
+ 		for(i in types)
+ 		{
+ 			if(i=0)
+ 				strType='type="'+types[i]+'" ';
+ 			else
+ 				strType+='OR type="'+types[i]+'" ';
+ 		}
+ 	}
+ 	else
+ 		strType = 'type="Musician/Band" OR type="Movie" OR type="Book" OR type="TV Show"';
+
+ 	if(req.param("nlikes")!=="")
+ 		nlikes = req.param("nlikes");
+ 	else
+ 		nlikes = 10;
  	// get the artist page
- 	var query = "SELECT uid2 FROM friend WHERE uid1 = me() limit 200";
+ 	var query = 'SELECT page_id,name,type FROM page WHERE page_id IN(SELECT page_id FROM page_fan WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=me() LIMIT 300)) AND ('+strType+') ORDER BY fan_count DESC limit '+nlikes;
+ 	
+ 	console.log("Value:"+query);
  	graph.fql(query,function(err,res2)
  	{
  		var i = res2.data.length;
- 		var friend = res2.data[i-1];
+ 		var page = res2.data[i-1];
  		var dataReturn = [];
  		getLikesFriend();
  		function getLikesFriend()
  		{
-			
-				var query2 = 'SELECT page_id,name,type FROM page WHERE page_id IN(SELECT page_id FROM page_fan WHERE uid = '+friend.uid2+') AND (type ="Musician/Band" OR type="Book" OR type="TV Show" OR type="Movie") ORDER BY fan_count DESC limit 10';
-				
+				var pageObj = {};  
+				var query2 = "SELECT uid FROM page_fan WHERE page_id = "+page.page_id+" AND uid IN (SELECT uid2 FROM friend WHERE uid1=me())";
+				console.log(query2);
 				graph.fql(query2, function(err, res3) 
 				{
 					if(i>0)
 					{
-						var already = false;
-						for(k in res3.data)
-						{
-							already = false;
-							for(j in dataReturn)
-							{
-								if(dataReturn[j].page_id == res3.data[k].page_id)
-								{
-									dataReturn[j].count++;
-									already = true;
-								}
-							}
+						pageObj.page_id = page.page_id;
+						pageObj.name = page.name;
+						pageObj.type = page.type;
+						pageObj.count = 0;
 
-							if(!already)
-							{
-								res3.data[k].count = 1;
-								dataReturn.push(res3.data[k]);
-							}
-						}
+						for(j in res3.data)
+							pageObj.count++;
 
+						dataReturn.push(pageObj);
 						i--;
-						friend = res2.data[((i-1)>=0)?(i-1):0];
+						page = res2.data[((i-1)>=0)?(i-1):0];
 						getLikesFriend();
 					}
 					else
