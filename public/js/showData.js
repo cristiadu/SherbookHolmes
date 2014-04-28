@@ -1,5 +1,5 @@
    
-
+$(document).ready(function(){
     $("#parameters-form").submit(function(e)
     {
       e.preventDefault();
@@ -10,14 +10,17 @@
       data: postData,
       type:"post",
        beforeSend: function ( xhr ) {    
+                         $('svg').remove();
                          $("#loading").show();
+
                     }
-      ,success:function(result){
+      ,success:function(result)
+      {
                 $("#loading").hide();
                
 
-                 var width = 960,
-      height = 500;
+                 var width = 850,
+      height = 750;
 
   var fill = d3.scale.category10();
   var nodes = classes(result);
@@ -28,7 +31,7 @@
   var max_amount = d3.max(nodes, function (d) { return parseInt(d.r)})
                 var radius_scale = d3.scale.pow().exponent(0.5).domain([0, max_amount]).range([2, 85])
   nodes.forEach(function (o,i) {
-      o.r = radius_scale(o.r)*.8;
+      o.r = radius_scale(o.r)*.6;
 
           });
 
@@ -49,8 +52,7 @@
   .attr("class", "bubblechart")
       .attr("width", width)
       .attr("height", height)
-      .append("g")
-      .attr("class", "bubbles");
+      ;
 
   var node = svg.selectAll("circle")
       .data(nodes);
@@ -63,6 +65,17 @@
       .style("fill", function(d, i) { return fill(d.typeName); })
       .style("stroke", function(d, i) { return d3.rgb(fill(d.typeName)).darker(2); })
       .call(force.drag)
+      .on("mouseover", function (d) { $(this).popover({
+            placement: 'auto top',
+            container: 'body',
+            trigger: 'manual',
+            html : true,
+            content: function() { 
+              return "Page: " + d.pageName + "<br/>Type: " + d.typeName + 
+                     "<br/>Friends that Like: " + d.count; }
+          });
+          $(this).popover('show'); })
+          .on("mouseout", function (d) { removePopovers(); })
       .on("mousedown", function() { d3.event.stopPropagation(); });
 
   svg.style("opacity", 1e-6)
@@ -72,6 +85,15 @@
 
   d3.select("body")
       .on("mousedown", mousedown);
+
+
+ function removePopovers () {
+          $('.popover').each(function() {
+            $(this).remove();
+          }); 
+        }
+
+
 
   function tick (k) {
                     return function (e) {
@@ -143,7 +165,7 @@
     var classes = [];
 
     for(var i in root)
-      classes.push({typeName: root[i].type, pageName: root[i].name, r: root[i].count});
+      classes.push({typeName: root[i].type, pageName: root[i].name, r: root[i].count,count: root[i].count});
     
 
    
@@ -151,6 +173,5 @@
   }
 
 
-
-
+});
 

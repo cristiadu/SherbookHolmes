@@ -40,42 +40,68 @@
               
                 <label for="name">Select categories to view:</label>
                 <div class="w-checkbox">
-                  <input class="w-checkbox-input" id="checkbox" type="checkbox" name="type" value="Musician/Band" data-name="Checkbox" checked="checked">
+                  <input class="w-checkbox-input" id="checkbox" type="checkbox" name="typePage" value="Musician/Band"  checked="checked">
                   <label class="w-form-label" for="checkbox">Music</label>
                 </div>
                 <div class="w-checkbox">
-                  <input class="w-checkbox-input" id="checkbox-2" type="checkbox" name="type" value="Movie" data-name="Checkbox 2" checked="checked">
+                  <input class="w-checkbox-input" id="checkbox-2" type="checkbox" name="typePage" value="Movie"  checked="checked">
                   <label class="w-form-label" for="checkbox-2">Movies</label>
                 </div>
                 <div class="w-checkbox">
-                  <input class="w-checkbox-input" id="checkbox-4" type="checkbox" name="type" value="TV Show" data-name="Checkbox 4" checked="checked">
+                  <input class="w-checkbox-input" id="checkbox-4" type="checkbox" name="typePage" value="TV Show"  checked="checked">
                   <label class="w-form-label" for="checkbox-4">TV&nbsp;Show</label>
                 </div>
                 <div class="w-checkbox">
-                  <input class="w-checkbox-input" id="checkbox-3" type="checkbox" name="type" value="Book" data-name="Checkbox 3" checked="checked">
+                  <input class="w-checkbox-input" id="checkbox-3" type="checkbox" name="typePage" value="Book" checked="checked">
                   <label class="w-form-label" for="checkbox-3">Books</label>
                 </div>
-              
+                <input type="submit" name="btnsub1" value="Filter" class="btn btn-success">
             </div>
           </div>
           <div class="w-col w-col-7" id="svg">
-             <div id="loading" class="container" style="display:none;">LOADING ...</div>
+             <div id="loading" class="container" style="display:none;padding-top:30%;">
+              <div class="row">
+                <div class="col-md-4 col-xs-4"></div>
+              <div id="circularG" class="col-md-3 col-xs-3">
+                      <div id="circularG_1" class="circularG">
+                    </div>
+                    <div id="circularG_2" class="circularG">
+                    </div>
+                    <div id="circularG_3" class="circularG">
+                    </div>
+                    <div id="circularG_4" class="circularG">
+                    </div>
+                    <div id="circularG_5" class="circularG">
+                    </div>
+                    <div id="circularG_6" class="circularG">
+                    </div>
+                    <div id="circularG_7" class="circularG">
+                    </div>
+                    <div id="circularG_8" class="circularG">
+                    </div>
+              </div> 
+            </div>
           </div>
+        </div>
           <div class="w-col w-col-3">
             <div class="w-form left-column">
+              <h4><small class="alert alert-info col-md-12 col-xs-12"><strong>Note:</strong> The bigger the number below, longer will be the time to show the data.</small></h4>
+              <br>
               <input type="text" name="nlikes" class="form-control" placeholder="Enter number of pages to show (Default = 10)">
-
-              <small><strong>Note:</strong> The bigger the number above, longer will be the time to show the data.</small>
+              <br>             
+              <input type="submit" name="btnsub1" value="Change Data" class="btn btn-success">
             </div>
           </div>
         </form>
       </div>
+    
     </div>
   </div>
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script type="text/javascript" src="js/webflow.js"></script>
+    <script src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/showData.js"></script>
   <!--[if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif]-->
 </body>

@@ -6,6 +6,11 @@ var handlebars = require('express3-handlebars');
 var path = require('path');
 var app = express();
 app.use(express.static(path.join(__dirname,'public')));
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({secret: 'this is the secret'}));  
+app.use(app.router);
 app.use(express.bodyParser());
 
 //Require routes
@@ -17,6 +22,7 @@ dotenv.load();
 
 //Configures the Template engine
 app.engine('handlebars',handlebars());
+app.use(express.session({secret: 'this is the secret'}));  
 app.set('view engine','handlebars');
 app.set('views',__dirname+'/views');
 
@@ -51,18 +57,27 @@ app.get('/auth/facebook', function(req, res) {
 
   // code is set
   // we'll send that and get the access token
+
+
+
   graph.authorize({
       "client_id":      process.env.appid_facebook
     , "redirect_uri":   process.env.redirect_uri_facebook
     , "client_secret":  process.env.client_secret_facebook
     , "code":           req.query.code
   }, function (err, facebookRes) {
+  	console.log(facebookRes);
+  	 req.session.access_token = facebookRes.access_token;
     res.redirect('/initial');
   });
 
 
 });
 
+function is_array(check_var) {
+   return(Object.prototype.toString.call( check_var ) === 
+                '[object Array]');
+}
 
 // user gets sent here after being authorized
 app.get('/initial', function(req, res) {
@@ -73,19 +88,27 @@ app.get('/initial', function(req, res) {
 app.post('/search',function(req,res){
 		
 	
-	var strType = "";
- 	// #FACEBOOK DATA#
- 	if(req.param("types"))
- 	{
- 		types = req.param("type");
+	var strTpPAge = "";
 
- 		for(i in types)
- 		{
- 			if(i=0)
- 				strType='type="'+types[i]+'" ';
- 			else
- 				strType+='OR type="'+types[i]+'" ';
+
+ 	// #FACEBOOK DATA#
+ 	if(req.param("typePage") !== undefined)
+ 	{
+ 		typePage = req.param("typePage");
+
+ 		if(is_array(typePage))
+ 		{	
+	 		for(i in typePage)
+	 		{
+	 			
+	 			if(i==0)
+	 				strTpPAge='type="'+typePage[i]+'" ';
+	 			else if(i < typePage.length)
+	 				strTpPAge+='OR type="'+typePage[i]+'" ';
+	 		}
  		}
+ 		else
+ 			strTpPAge='type="'+typePage+'" ';
  	}
  	else
  		strType = 'type="Musician/Band" OR type="Movie" OR type="Book" OR type="TV Show"';
@@ -95,10 +118,10 @@ app.post('/search',function(req,res){
  	else
  		nlikes = 10;
  	// get the artist page
- 	var query = 'SELECT page_id,name,type FROM page WHERE page_id IN(SELECT page_id FROM page_fan WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=me() LIMIT 300)) AND ('+strType+') ORDER BY fan_count DESC limit '+nlikes;
+ 	var query = 'SELECT page_id,name,type FROM page WHERE page_id IN(SELECT page_id FROM page_fan WHERE uid IN (SELECT uid2 FROM friend WHERE uid1=me() LIMIT 200)) AND ('+strTpPAge+') ORDER BY fan_count DESC limit '+nlikes;
  	
- 	console.log("Value:"+query);
- 	graph.fql(query,function(err,res2)
+ 	
+ 	graph.setAccessToken(req.session.access_token).fql(query,function(err,res2)
  	{
  		var i = res2.data.length;
  		var page = res2.data[i-1];
@@ -108,8 +131,8 @@ app.post('/search',function(req,res){
  		{
 				var pageObj = {};  
 				var query2 = "SELECT uid FROM page_fan WHERE page_id = "+page.page_id+" AND uid IN (SELECT uid2 FROM friend WHERE uid1=me())";
-				console.log(query2);
-				graph.fql(query2, function(err, res3) 
+				
+				graph.setAccessToken(req.session.access_token).fql(query2, function(err, res3) 
 				{
 					if(i>0)
 					{
