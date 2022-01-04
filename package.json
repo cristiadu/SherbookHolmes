@@ -1,6 +1,6 @@
 {
-	"name": "Assignment121-1",
-	"version": "0.0.1",
+	"name": "sherbook-holmes",
+	"version": "1.0.0",
 	"author": "Cristiano Faustino",
 	"scripts": {
 		"start": "node app.js"
@@ -8,7 +8,7 @@
 	"dependencies": {
 		"express": "3.x",
 		"dotenv": "*",
-		"express3-handlebars": "*",
+		"express-handlebars": "*",
 		"mongodb": "*",
 		"mongoose": "*",
 		"passport": "*",
@@ -21,6 +21,6 @@
 		"consolidate": "0.9.1"
 	},
 	"engines": {
-		"node": "0.10.x"
+		"node": "0.12.x"
 	}
 }

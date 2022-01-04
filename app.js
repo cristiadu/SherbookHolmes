@@ -2,7 +2,7 @@ var express = require('express');
 var graph = require('fbgraph');
 var Twit = require('twit')
 var http = require('http');
-var handlebars = require('express3-handlebars');
+var handlebars = require('express-handlebars');
 var path = require('path');
 var app = express();
 app.use(express.static(path.join(__dirname,'public')));
