@@ -3,7 +3,7 @@ SherbookHolmes
 
 An application using D3 visualization and Facebook API to show on a different way which things your friends like.
 
-Done as part of the Introduction to Human Computer Interaction course taught by Scott Klemmer at UCSD in 2014.
+Developed as part of the Introduction to Human Computer Interaction course taught by Scott Klemmer at UCSD in 2014.
 
 Design Principles Used
 --------------
