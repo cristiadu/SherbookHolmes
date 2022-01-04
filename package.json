@@ -21,6 +21,6 @@
 		"consolidate": "0.9.1"
 	},
 	"engines": {
-		"node": "0.12.x"
+		"node": "12.x"
 	}
 }
